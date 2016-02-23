@@ -45,7 +45,6 @@ public class Mario1Controller2DScript : MonoBehaviour {
 
 		//If our player hit a horizontal key...
 		if (Input.GetButton("Horizontal")){
-			Debug.Log ("Trying to walk");
 			sprintTimer = Time.time;  //.. reset the sprintTimer variable
 			jumpedDuringSprint = false;  //... change Jumped During Sprint to false, as we lost momentum
 		}
@@ -77,7 +76,6 @@ public class Mario1Controller2DScript : MonoBehaviour {
 		//If our player pressed the jump key...
 		if (playerJumped){
 			GetComponent<Rigidbody2D>().AddForce(new Vector2(0,initialJumpForce), ForceMode2D.Impulse); //"Jump" our player up in the air!
-			Debug.Log("J");
 			playerJumped = false; //Our player already jumped, so no need to jump again just yet
 		}
 
