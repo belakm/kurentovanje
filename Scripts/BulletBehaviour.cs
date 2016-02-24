@@ -11,6 +11,7 @@ public class BulletBehaviour : MonoBehaviour {
 	private bool isDestroyed;
 	private float timeLeft;
 
+	private bool richoched;
 	// Audio
 	private AudioSource sounds;
 	
@@ -44,11 +45,13 @@ public class BulletBehaviour : MonoBehaviour {
 		if (col.gameObject.tag != "Player")
 			isDestroyed = true;
 
-		if (col.gameObject.tag == "Volkodlak")
-			Destroy(image);
-		else 
+		if (col.gameObject.tag == "Volkodlak") {
+			Destroy (image);
+		}
+		else if (!richoched){
+			richoched = true;
 			sounds.Play (); // Play richochet sound if
-		
+		}
 	}
 
 	void DestroyTimer(){

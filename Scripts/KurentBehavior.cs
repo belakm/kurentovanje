@@ -128,6 +128,9 @@ public class KurentBehavior : MonoBehaviour {
 
 		GameObject bPrefab = Instantiate(bulletPrefab, bulletAnchor.transform.position, Quaternion.identity) as GameObject;
 
+		// Dont collide with player
+		Physics2D.IgnoreCollision (bPrefab.GetComponent<BoxCollider2D>(), GetComponent<PolygonCollider2D>());
+
 		bPrefab.GetComponent<BulletBehaviour> ().Fire (spriteDirection);
 	}
 

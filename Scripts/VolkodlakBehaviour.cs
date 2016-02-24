@@ -23,6 +23,11 @@ public class VolkodlakBehaviour : MonoBehaviour {
 	private PolygonCollider2D volkodlakCollider;
 	private ParticleSystem bloodSystem;
 
+	// GroundControl
+	private bool isGrounded;
+	public Transform groundChecker1;
+	public Transform groundChecker2;
+
 	// Use this for initialization
 	void Start () {
 		volkodlak = GetComponent<Rigidbody2D> ();
@@ -75,6 +80,9 @@ public class VolkodlakBehaviour : MonoBehaviour {
 			dead = true;
 			skull.layer = 11; // DEAD ENEMIES LAYER
 			bloodSystem.Emit(bloodParticlesEmitted);
+
+			// spawn another volkodlak
+			spawnABrother ();
 		}
 
 	}
@@ -114,17 +122,31 @@ public class VolkodlakBehaviour : MonoBehaviour {
 	void Update () {
 
 		if (!dead) {
+
+			checkGround ();
 		
-			if (!triggered)
-				walk ();
-			else 
-				hunt ();
-			
-			getFrameRate ();
+			if (isGrounded) { // on ground
+				if (!triggered) 
+					walk ();
+				else
+					hunt ();
+
+				getFrameRate ();
+
+			} else { // falling, stop animation
+				animator.speed = 0;
+			}
 
 		} else {
 			animator.speed = 1;
 		}
+
+	}
+
+	void checkGround (){
+	
+		isGrounded = Physics2D.Linecast(transform.position, groundChecker1.position, 1 << LayerMask.NameToLayer("Ground"))
+					|| Physics2D.Linecast(transform.position, groundChecker2.position, 1 << LayerMask.NameToLayer("Ground"));
 
 	}
 
@@ -136,4 +158,16 @@ public class VolkodlakBehaviour : MonoBehaviour {
 			framesPerSec = 4;
 		if (animator.speed != framesPerSec) animator.speed = framesPerSec;
 	}
+
+	// Call to SpawnPointsToSpawnAVolkodlak
+	void spawnABrother(){
+	
+		// Get spawn points
+		GameObject spawnPoints = GameObject.Find ("VolkodlakSpawnPoints");
+
+		// Get random spawn and call its public method spawnOne() to spawn one 
+		spawnPoints.transform.GetChild (Random.Range (0, spawnPoints.transform.childCount - 1)).GetComponent<volkodlakSpawnScript>().spawnOne();
+	
+	}
+
 }

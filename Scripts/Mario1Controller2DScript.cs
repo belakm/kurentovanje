@@ -21,7 +21,8 @@ public class Mario1Controller2DScript : MonoBehaviour {
 	private float jumpTimer;             //Used in calculating the extra jump delay
 	private bool playerJumped;           //Tell us if the player has jumped
 	private bool playerJumping;          //Tell us if the player is holding down the jump button
-	public Transform groundChecker;      //Gameobject required, placed where you wish "ground" to be detected from
+	public Transform groundChecker1;      //Gameobject required, placed where you wish "ground" to be detected from
+	public Transform groundChecker2;      //Gameobject required, placed where you wish "ground" to be detected from
 	public Rigidbody2D playerBody;
 	private bool isGrounded;             //Check to see if we are grounded
 
@@ -29,7 +30,8 @@ public class Mario1Controller2DScript : MonoBehaviour {
 
 		//Casts a line between our ground checker gameobject and our player
 		//If the floor is between us and the groundchecker, this makes "isGrounded" true
-		isGrounded = Physics2D.Linecast(transform.position, groundChecker.position, 1 << LayerMask.NameToLayer("Ground"));
+		isGrounded = Physics2D.Linecast(transform.position, groundChecker1.position, 1 << LayerMask.NameToLayer("Ground"))
+			|| Physics2D.Linecast(transform.position, groundChecker2.position, 1 << LayerMask.NameToLayer("Ground"));
 
 		//If our player hit the jump key, then it's true that we jumped!
 		if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded){

@@ -11,6 +11,8 @@ public class TilingScript : MonoBehaviour {
 	public float gridX = 0.0f;
 	public float gridY = 0.0f;
 
+	public bool itRequiresACollider;
+
 	SpriteRenderer sprite;
 
 	void Awake () {
@@ -63,7 +65,7 @@ public class TilingScript : MonoBehaviour {
 
 		//Debug.Log (spriteColumns + " " + spriteRows + " " + ppu);
 			
-		BoxCollider2D boxCollider = gameObject.AddComponent<BoxCollider2D> ();
+		if (itRequiresACollider) gameObject.AddComponent<BoxCollider2D> ();
 
 		Destroy(childPrefab);
 		sprite.enabled = false; // Disable this SpriteRenderer and let the prefab children render themselves
