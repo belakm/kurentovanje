@@ -1,6 +1,6 @@
 # Kurentovanje
 
-### Version **0.4.1**
+### Version **0.4.2**
 
 Platformer game first made with Phaser.js but now freshly ported to Unity.
 In development.
@@ -12,6 +12,10 @@ In development.
 - **SPACE:** shooting
 
 ### Changelog
+
+> **v. 0.4.2**   
+> (24. 2. 2016)   
+> Lvl 1 template, bugfixes for moving and bullets
 
 > **v. 0.4.1**   
 > (23. 2. 2016)   
